@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jenkins Build Trigger</title>
+</head>
+<body>
+  <h2>Trigger Jenkins Build</h2>
+  <button onclick="triggerBuild()">Click to Build</button>
+  <p id="status"></p>
+
+  <script>
+    async function triggerBuild() {
+      document.getElementById("status").innerText = "Triggering build...";
+      try {
+        const res = await fetch("/trigger-build");
+        const text = await res.text();
+        document.getElementById("status").innerText = text;
+      } catch (e) {
+        document.getElementById("status").innerText = "Error: " + e.message;
+      }
+    }
+  </script>
+</body>
+</html>
