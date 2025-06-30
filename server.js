@@ -2,12 +2,13 @@ const express = require("express");
 const axios = require("axios");
 
 const app = express();
+app.use(express.static("public"));
 const port = process.env.PORT || 3000;
 
 // Jenkins credentials
 const jenkinsUrl = "https://jenkins.autotests.cloud";
 const jobName = "Fullcontact_test";
-const user = "minc0re1";
+const user = "mindc0re1";
 const apiToken = "116244bd232797d1ba2ce39b436415bdd7";
 const triggerToken = "portfolioToken123";
 
