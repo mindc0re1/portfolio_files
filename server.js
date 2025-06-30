@@ -3,6 +3,7 @@ const axios = require("axios");
 
 const app = express();
 app.use(express.static("public"));
+
 const port = process.env.PORT || 3000;
 
 // Jenkins credentials
@@ -37,10 +38,16 @@ app.get("/trigger-build", async (req, res) => {
       headers
     });
 
-    res.status(200).send("✅ Build triggered successfully!");
+    // Respond with useful URLs
+    res.status(200).json({
+      message: "✅ Build triggered successfully!",
+      jenkinsJobUrl: `${jenkinsUrl}/job/${jobName}/`,
+      lastBuildUrl: `${jenkinsUrl}/job/${jobName}/lastBuild/`
+      // You can add allureReportUrl here if available
+    });
   } catch (error) {
     console.error("Error triggering build:", error.response?.data || error.message);
-    res.status(500).send("❌ Failed to trigger build");
+    res.status(500).json({ message: "❌ Failed to trigger build" });
   }
 });
 
